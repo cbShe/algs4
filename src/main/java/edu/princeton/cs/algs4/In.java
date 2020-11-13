@@ -157,6 +157,7 @@ public final class In {
      */
     public In(String name) {
         if (name == null) throw new IllegalArgumentException("argument is null");
+        if (name.length() == 0) throw new IllegalArgumentException("argument is the empty string");
         try {
             // first try to read file from local file system
             File file = new File(name);
@@ -795,7 +796,7 @@ public final class In {
 }
 
 /******************************************************************************
- *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

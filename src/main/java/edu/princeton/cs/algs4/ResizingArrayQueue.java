@@ -37,6 +37,9 @@ import java.util.NoSuchElementException;
  *  @author Kevin Wayne
  */
 public class ResizingArrayQueue<Item> implements Iterable<Item> {
+    // initial capacity of underlying resizing array
+    private static final int INIT_CAPACITY = 8;
+
     private Item[] q;       // queue elements
     private int n;          // number of elements on queue
     private int first;      // index of first element of queue
@@ -47,7 +50,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
      * Initializes an empty queue.
      */
     public ResizingArrayQueue() {
-        q = (Item[]) new Object[2];
+        q = (Item[]) new Object[INIT_CAPACITY];
         n = 0;
         first = 0;
         last = 0;
@@ -72,11 +75,11 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
     // resize the underlying array
     private void resize(int capacity) {
         assert capacity >= n;
-        Item[] temp = (Item[]) new Object[capacity];
+        Item[] copy = (Item[]) new Object[capacity];
         for (int i = 0; i < n; i++) {
-            temp[i] = q[(first + i) % q.length];
+            copy[i] = q[(first + i) % q.length];
         }
-        q = temp;
+        q = copy;
         first = 0;
         last  = n;
     }
@@ -161,7 +164,7 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *
